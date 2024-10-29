@@ -1,17 +1,13 @@
 import './App.css'
-import { Form } from 'react-bootstrap'
+import CreateUser from './Components/CreateUser/CreateUser'
+import Login from './Components/Login/Login'
 
 function App() {
-
   return (
     <>
-      <div>
-        <Form>
-
-        </Form>
-      </div>
+      <Login />
     </>
   )
-}
+};
 
 export default App
