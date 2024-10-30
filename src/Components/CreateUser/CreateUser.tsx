@@ -1,16 +1,18 @@
 import { Button, Form } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
-import { useEffect, useState } from 'react'
-import mongoose, { mongo } from 'mongoose'
-
-const MongoDbUrl: string = "mongodb+srv://pavan192004:2mT9wlZpJ338zKzQ@cluster0.rdm1aur.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+import { Link, Navigate } from 'react-router-dom'
+import { useContext, useEffect, useState } from 'react'
+import { CurrentUserContext } from '../../GlobalStates/GlobalUserState';
+import { useNavigate } from 'react-router-dom';
 
 function CreateUser() {
     const [username, setUserName] = useState("");
     const [password, setPassword] = useState("");
-    const [submit, setSubmit] = useState(false);
+    const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
+    const navigate = useNavigate();
+    const [isSuccessful, setIsSuccessful] = useState(false);
 
-    const handleSubmit = async () => {
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
         let result = await fetch("http://localhost:5000/CreateUser", {
             method: "post",
             body: JSON.stringify({ username, password }),
@@ -19,16 +21,25 @@ function CreateUser() {
             }
         })
         result = await result.json();
-        console.warn(result);
+        console.log(result, "HELLO");
         if (result) {
-            alert("Data saved succesfully");
+            console.log("Data saved succesfully");
+            setCurrentUser({ username: username, password: password });
+            setIsSuccessful(true);
             setUserName("");
             setPassword("");
+            console.log(currentUser, "NEWUSER");
         }
     };
 
+    useEffect(() => {
+        if (isSuccessful) {
+            navigate("/UserScreen"); // Navigate when successful
+        }
+    }, [isSuccessful, navigate]);
+
     return (
-        <Form>
+        <Form onSubmit={handleSubmit}>
             <Form.Group className='mb-3' controlId='CreateUsername'>
                 <Form.Label>Username</Form.Label>
                 <Form.Control value={username} onChange={
@@ -45,13 +56,11 @@ function CreateUser() {
                     type='password' placeholder='Create password' />
             </Form.Group>
 
-            <Link>
-                <Button variant='primary' onClick={handleSubmit}>
-                    Create!
-                </Button>
-            </Link>
+            <Button type="submit" variant='primary'>
+                Create!
+            </Button>
 
-        </Form>
+        </Form >
     )
 };
 

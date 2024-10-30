@@ -12,6 +12,6 @@ const userSchema = new Schema<UserInterface>(
     }
 )
 
-const User = model<UserInterface>('User', userSchema);
+const UserModel = model<UserInterface>('User', userSchema);
 
-export { User };
+export { UserModel };
