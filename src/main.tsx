@@ -1,4 +1,4 @@
-import { StrictMode, useContext, useState } from 'react'
+import { StrictMode, useContext, useEffect, useState } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -31,7 +31,27 @@ const router = createBrowserRouter(
 );
 
 const WebsiteRoot = () => {
-  const [currentUser, setCurrentUser] = useState<UserInterface>({ username: "", password: "" });
+  const [currentUser, setCurrentUser] = useState<UserInterface>({ username: "DummyUser", password: "DummyPassword" });
+
+  useEffect(() => {
+    const LogCurrentUser = async () => {
+      let result = await fetch("http://localhost:5000/LogCurrentUser", {
+        method: "post",
+        body: JSON.stringify({ currentusername: currentUser.username }),
+        headers: {
+          'Content-type': 'application/json'
+        }
+      })
+      console.log(currentUser.username);
+      result = await result.json();
+      console.log(result, "HELLO");
+      if (result) {
+        console.log("User logged succesfully");
+      }
+    };
+
+    LogCurrentUser();
+  }, [currentUser]);
 
   return (
     <CurrentUserContext.Provider value={{ currentUser, setCurrentUser }}>
