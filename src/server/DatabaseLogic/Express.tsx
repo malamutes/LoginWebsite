@@ -6,7 +6,6 @@ import { Request, Response } from 'express';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
-
 await ConnectDatabase();
 
 const app = express();
@@ -21,10 +20,10 @@ const __dirname = path.dirname(__filename);
 
 console.log("App listen at port 5000");
 
-app.use(express.static(path.join(__dirname, '../../../dist/assets')));
+app.use(express.static(path.resolve(__dirname, '../assets')));
 
 app.get('*', (_req: Request, res: Response) => {
-    res.sendFile(path.join(__dirname, '../../../dist/index.html'));
+    res.sendFile(path.resolve(__dirname, '../index.html'));
 });
 
 
