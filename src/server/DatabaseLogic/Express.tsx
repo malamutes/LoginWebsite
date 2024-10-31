@@ -11,6 +11,9 @@ await ConnectDatabase();
 
 const app = express();
 app.use(express.json());
+
+const port = process.env.PORT || 4000;
+
 app.use(cors());
 
 const __filename = fileURLToPath(import.meta.url);
@@ -91,4 +94,4 @@ app.post("/GetCurrentUser", async (req: Request<{}, {}, CurrentUserInterface>, r
 });
 
 
-app.listen(5000);
+app.listen(port);
