@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { UserInterface } from "../../DatabaseLogic/User";
+import { UserInterface } from "../../../server/DatabaseLogic/User";
 import { Button, Card, Row } from 'react-bootstrap'
 import { Link } from "react-router-dom";
 
