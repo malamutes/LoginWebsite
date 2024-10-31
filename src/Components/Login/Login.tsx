@@ -1,7 +1,7 @@
 import React from 'react'
 import { Button, Form, InputGroup } from 'react-bootstrap'
-import { Link, LinkProps } from 'react-router-dom'
-import { useState, useContext, useEffect } from 'react';
+import { Link } from 'react-router-dom'
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 //import { CurrentUserContext } from '../../GlobalStates/GlobalUserState';
 

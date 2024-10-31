@@ -35,7 +35,7 @@ app.post("/CreateUser", async (req, resp) => {
     }
 
     catch (error) {
-        console.log("error creating use", error);
+        console.log("error creating user:", error);
         resp.status(500).json({ message: "Something went wrong" }); // Return a JSON error response
     }
 });

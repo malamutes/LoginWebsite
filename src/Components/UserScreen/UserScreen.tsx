@@ -1,11 +1,11 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { UserInterface } from "../../DatabaseLogic/User";
-import { Button } from 'react-bootstrap'
+import { Button, Card, Row } from 'react-bootstrap'
 import { Link } from "react-router-dom";
 
 
 export default function UserScreen() {
-    const [userData, setUserData] = useState<UserInterface>({ username: "", password: "" });
+    const [userData, setUserData] = useState<UserInterface>({ username: "", password: "", country: "", age: 0, gender: "" });
     const [gettingData, setGettingData] = useState(false);
 
     useEffect(() => {
@@ -42,11 +42,18 @@ export default function UserScreen() {
 
     }, [])
 
-    const displayText = `Welcome ${userData.username}, your password is ${userData.password}`
-
     return (
         <>
-            <p> {`${gettingData ? displayText : "Loading..."}`} </p>
+            <Card style={{ width: '25rem' }} className="mb-3">
+                <Card.Body>
+                    <Card.Title>{userData.username}</Card.Title>
+                    <Card.Subtitle className="mb-2 text-muted">PASSWORD HIDDEN</Card.Subtitle>
+                    <Card.Text>
+                        You are from {userData.country}, a {userData.gender} and you are {userData.age} years old.
+                    </Card.Text>
+                </Card.Body>
+            </Card>
+
             <Link to={"/"}>
                 <Button >
                     BACK BUTTON!

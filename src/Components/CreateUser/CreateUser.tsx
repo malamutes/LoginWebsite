@@ -1,7 +1,7 @@
 import { Button, Form, FormGroup, InputGroup } from 'react-bootstrap'
-import { Link, Navigate } from 'react-router-dom'
-import { useContext, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 function CreateUser() {
     const [username, setUserName] = useState("");
@@ -13,7 +13,15 @@ function CreateUser() {
     const [age, setAge] = useState(0);
     const [country, setCountry] = useState("");
     const [gender, setGender] = useState("");
+    const [errorMessageUser, setErrorMessageUser] = useState("");
+    const [errorMessagePass, setErrorMessagePass] = useState("");
+    const [validUser, setValidUser] = useState(false);
+    const [validPass, setValidPass] = useState(false);
 
+    const validatePassword = (pw: string) => {
+        const regex = /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,20}$/;
+        return regex.test(pw);
+    }
 
     useEffect(() => {
         const getUserData = async () => {
@@ -32,22 +40,26 @@ function CreateUser() {
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        let result = await fetch("http://localhost:5000/CreateUser", {
-            method: "post",
-            body: JSON.stringify({ username, password }),
-            headers: {
-                'Content-type': 'application/json'
+
+        if (validPass && validUser) {
+            let result = await fetch("http://localhost:5000/CreateUser", {
+                method: "post",
+                body: JSON.stringify({ username, password, country, age, gender }),
+                headers: {
+                    'Content-type': 'application/json'
+                }
+            })
+            result = await result.json();
+            console.log(result, "HELLO");
+            if (result) {
+                console.log("Data saved succesfully");
+                sessionStorage.setItem('currentuser', JSON.stringify({ currentusername: username }))
+                setIsSuccessful(true);
+                setUserName("");
+                setPassword("");
             }
-        })
-        result = await result.json();
-        console.log(result, "HELLO");
-        if (result) {
-            console.log("Data saved succesfully");
-            sessionStorage.setItem('currentuser', JSON.stringify({ currentusername: username }))
-            setIsSuccessful(true);
-            setUserName("");
-            setPassword("");
         }
+
     };
 
     useEffect(() => {
@@ -56,23 +68,69 @@ function CreateUser() {
         }
     }, [isSuccessful, navigate]);
 
+    //!!errormessage is such that in tsx, an empty string evalutes to false while a filled string evaluates to true
+
     return (
         <Form onSubmit={handleSubmit}>
-            <Form.Group className='mb-3' controlId='CreateUsername'>
-                <Form.Label>Username</Form.Label>
-                <Form.Control value={username} onChange={
-                    (event: React.ChangeEvent<HTMLInputElement>) => setUserName(event.target.value)
-                }
-                    type='text' placeholder='Create username' />
-            </Form.Group>
+            <InputGroup hasValidation>
+                <Form.Group className='mb-3' controlId='CreateUsername'>
+                    <Form.Label>Username</Form.Label>
+                    <Form.Control value={username} onChange={
+                        (event: React.ChangeEvent<HTMLInputElement>) => {
+                            setUserName(event.target.value);
+                            if ((event.target.value.length > 24 || event.target.value.length < 4)) {
+                                setErrorMessageUser("Username has to be between 5 and 25 characters!");
+                                setValidUser(false);
+                            }
+                            else {
+                                setValidUser(true);
+                                setErrorMessagePass("");
 
-            <Form.Group className='mb-3' controlId='CreatePassword'>
-                <Form.Label>Password</Form.Label>
-                <Form.Control value={password} onChange={
-                    (event: React.ChangeEvent<HTMLInputElement>) => setPassword(event.target.value)
-                }
-                    type='password' placeholder='Create password' />
-            </Form.Group>
+                            }
+                        }
+                    }
+                        type='text' placeholder='Create username' required isInvalid={!validUser && !!errorMessageUser} isValid={validUser} />
+                    <Form.Control.Feedback type="invalid">
+                        {errorMessageUser}
+                    </Form.Control.Feedback>
+
+                    <Form.Control.Feedback type="valid">
+                        Good username!
+                    </Form.Control.Feedback>
+                </Form.Group>
+
+            </InputGroup>
+
+            <InputGroup hasValidation>
+                <Form.Group className='mb-3' controlId='CreatePassword'>
+                    <Form.Label>Password</Form.Label>
+                    <Form.Control value={password} onChange={
+                        (event: React.ChangeEvent<HTMLInputElement>) => {
+                            setPassword(event.target.value);
+                            if (!validatePassword(event.target.value)) {
+                                setErrorMessagePass(`Password has to be between 8 and 20 characters, \ncontain at least ONE uppercase and ONE digit!`);
+                                setValidPass(false);
+                            }
+                            else {
+                                setValidPass(true);
+                                setErrorMessagePass("");
+
+                            }
+                        }
+                    }
+                        type='password' placeholder='Create password' required isInvalid={!validPass && !!errorMessagePass} isValid={validPass} />
+                    <Form.Control.Feedback type="invalid" style={{ maxWidth: '300px' }}>
+                        {errorMessagePass}
+                    </Form.Control.Feedback>
+
+                    <Form.Control.Feedback type="valid">
+                        Good password!
+                    </Form.Control.Feedback>
+                </Form.Group>
+
+
+            </InputGroup>
+
 
             <FormGroup controlId='SelectCountry'>
                 <Form.Label>Country</Form.Label>
@@ -114,9 +172,15 @@ function CreateUser() {
             </InputGroup>
 
 
-            <Button type="submit" variant='primary'>
+            <Button type="submit" variant='primary' className='me-3'>
                 Create!
             </Button>
+
+            <Link to={"/"}>
+                <Button >
+                    BACK BUTTON!
+                </Button>
+            </Link>
 
         </Form >
     )

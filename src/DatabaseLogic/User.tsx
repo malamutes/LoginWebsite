@@ -1,8 +1,12 @@
-import { Schema, model, connect } from "mongoose";
+import { Schema, model } from "mongoose";
 
 export interface UserInterface {
     username: string,
     password: string,
+    country: string,
+    age: number,
+    gender: string,
+
 }
 
 export interface CurrentUserInterface {
@@ -11,8 +15,17 @@ export interface CurrentUserInterface {
 
 const userSchema = new Schema<UserInterface>(
     {
-        username: { type: String, required: true, unique: true },
-        password: { type: String, required: true },
+        username: { type: String, required: true, unique: true, minlength: 5, maxlength: 25 },
+        password: {
+            type: String, required: true, minlength: 8, maxlength: 20, validate: {
+                validator: function (pw: string) {
+                    return /\d{3}-\d{3}-\d{4}/.test(pw);
+                },
+            },
+        },
+        country: { type: String, required: true, default: "Homeless" },
+        age: { type: Number, required: true, default: 0 },
+        gender: { type: String, required: true, default: 'none' },
 
     }
 )
