@@ -3,6 +3,8 @@ import cors from 'cors';
 import { CurrentUserInterface, UserInterface, UserModel } from './User';
 import ConnectDatabase from './ConnectDatabase';
 import { Request, Response } from 'express';
+import path from 'path';
+
 
 
 await ConnectDatabase();
@@ -13,9 +15,16 @@ app.use(cors());
 
 console.log("App listen at port 5000");
 
-app.get("/", (req, resp) => {
+app.get("/", (_req, resp) => {
     resp.send("App is working")
 });
+
+app.use(express.static(path.join(__dirname, '../../../dist')));
+
+app.get('*', (_req, res) => {
+    res.sendFile(path.join(__dirname, '../../../dist/index.html'));
+});
+
 
 app.post("/CreateUser", async (req, resp) => {
     try {

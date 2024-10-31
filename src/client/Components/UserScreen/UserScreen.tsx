@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react";
 import { UserInterface } from "../../../server/DatabaseLogic/User";
-import { Button, Card, Row } from 'react-bootstrap'
+import { Button, Card } from 'react-bootstrap'
 import { Link } from "react-router-dom";
 
 
 export default function UserScreen() {
     const [userData, setUserData] = useState<UserInterface>({ username: "", password: "", country: "", age: 0, gender: "" });
-    const [gettingData, setGettingData] = useState(false);
 
     useEffect(() => {
         const getUserData = async () => {
@@ -33,7 +32,6 @@ export default function UserScreen() {
                 console.log("GOT USER");
                 setUserData(data);
                 console.log(data, "DATA");
-                setGettingData(true);
             }
         };
 
