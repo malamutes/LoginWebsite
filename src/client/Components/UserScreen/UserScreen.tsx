@@ -19,7 +19,7 @@ export default function UserScreen() {
             }
             console.log(currUsername);
 
-            let result = await fetch("http://localhost:5000/GetCurrentUser", {
+            let result = await fetch("https://loginwebsite-tk8h.onrender.com/GetCurrentUser", {
                 method: "post",
                 body: JSON.stringify({ currentusername: currUsername }),
                 headers: {

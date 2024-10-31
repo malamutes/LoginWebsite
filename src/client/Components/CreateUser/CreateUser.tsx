@@ -43,7 +43,7 @@ function CreateUser() {
         event.preventDefault();
 
         if (validPass && validUser) {
-            let result = await fetch("http://localhost:5000/CreateUser", {
+            let result = await fetch("https://loginwebsite-tk8h.onrender.com/CreateUser", {
                 method: "post",
                 body: JSON.stringify({ username, password, country, age, gender }),
                 headers: {
