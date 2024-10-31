@@ -1,17 +1,19 @@
 {
   "compilerOptions": {
     "target": "ES2022",
-    "lib": ["ES2023"],
+    "lib": [
+      "ES2023",
+      "DOM"
+    ],
     "module": "ESNext",
     "skipLibCheck": true,
-
     /* Bundler mode */
     "moduleResolution": "Bundler",
     "allowImportingTsExtensions": true,
     "isolatedModules": true,
     "moduleDetection": "force",
     "noEmit": true,
-
+    "jsx": "react-jsx", // Enable JSX for React,
     /* Linting */
     "strict": true,
     "noUnusedLocals": true,
@@ -19,5 +21,12 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true
   },
-  "include": ["vite.config.ts"]
+  "include": [
+    "src/client/**/*",
+    "vite.config.ts"
+  ], // Include your client source files
+  "exclude": [
+    "node_modules",
+    "dist"
+  ] // Exclude node_modules and dist from compilation
 }

@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "esModuleInterop": true, // Add this line
+    "target": "ES2022", // Set ECMAScript target version
+    "module": "ESNext", // Use CommonJS for Node.js
+    "moduleResolution": "node",
+    "jsx": "react", // or "react-jsx" if using React 17+
+    "lib": [
+      "ES2022"
+    ], // Include relevant libraries
+    "skipLibCheck": true, // Skip type checking for declaration files
+    "outDir": "./dist", // Output directory for compiled files
+    "rootDir": "./src/server", // Root directory for your source files
+    "strict": true, // Enable strict type checking options
+    "noUnusedLocals": true, // Report errors on unused locals
+    "noUnusedParameters": true, // Report errors on unused parameters
+    "forceConsistentCasingInFileNames": true // Ensure consistent casing in file names
+  },
+  "include": [
+    "src/server/**/*"
+  ], // Include server files
+  "exclude": [
+    "node_modules",
+    "dist"
+  ] // Exclude node_modules and dist
+}

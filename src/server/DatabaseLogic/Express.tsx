@@ -15,18 +15,18 @@ app.use(cors());
 
 console.log("App listen at port 5000");
 
-app.get("/", (_req, resp) => {
+app.get("/", (_req: Request, resp: Response) => {
     resp.send("App is working")
 });
 
 app.use(express.static(path.join(__dirname, '../../../dist')));
 
-app.get('*', (_req, res) => {
+app.get('*', (_req: Request, res: Response) => {
     res.sendFile(path.join(__dirname, '../../../dist/index.html'));
 });
 
 
-app.post("/CreateUser", async (req, resp) => {
+app.post("/CreateUser", async (req: Request, resp: Response) => {
     try {
         const newUser = new UserModel(req.body);
         console.log(newUser);
