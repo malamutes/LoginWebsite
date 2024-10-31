@@ -4,7 +4,8 @@
     "target": "ES2022", // Set ECMAScript target version
     "module": "ESNext", // Use CommonJS for Node.js
     "moduleResolution": "node",
-    "jsx": "react", // or "react-jsx" if using React 17+
+    "allowSyntheticDefaultImports": true, // Allows synthetic default imports
+    "jsx": "react-jsx", // or "react-jsx" if using React 17+
     "lib": [
       "ES2022"
     ], // Include relevant libraries

@@ -1,7 +1,7 @@
 import express from 'express';
 import cors from 'cors';
-import { CurrentUserInterface, UserInterface, UserModel } from './User';
-import ConnectDatabase from './ConnectDatabase';
+import { CurrentUserInterface, UserInterface, UserModel } from './User.js';
+import ConnectDatabase from './ConnectDatabase.js';
 import { Request, Response } from 'express';
 import path from 'path';
 
