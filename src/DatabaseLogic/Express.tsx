@@ -1,6 +1,6 @@
 import express from 'express';
 import cors from 'cors';
-import { CurrentUserInterface, CurrentUserModel, UserInterface, UserModel } from './User';
+import { CurrentUserInterface, UserInterface, UserModel } from './User';
 import ConnectDatabase from './ConnectDatabase';
 import { Request, Response } from 'express';
 
@@ -61,44 +61,14 @@ app.post("/UserLogin", async (req: Request<{}, {}, UserInterface>, resp: Respons
     }
 });
 
-//for now the id for current user is always current user
-app.post("/LogCurrentUser", async (req: Request<{}, {}, CurrentUserInterface>, resp: Response) => {
+//retrieving user data
+app.post("/GetCurrentUser", async (req: Request<{}, {}, CurrentUserInterface>, resp: Response) => {
     try {
         const un = req.body.currentusername;
         console.log(un, "WORKS UP TO HERE");
-        const FoundCurrentLoggedUser = await CurrentUserModel.findOneAndUpdate({ _id: "6721f76badfdbd58c3f3ebf7" }, { currentusername: `${un}` }, { new: true, runValidators: true });
-        console.log(FoundCurrentLoggedUser, "LOGGED");
-        if (!FoundCurrentLoggedUser) {
-            resp.status(401).json({ success: false });
-            console.log("Cannot find currently logged user");
-        }
-        else if (FoundCurrentLoggedUser) {
-            resp.status(200).send(FoundCurrentLoggedUser);
-        }
-    }
-
-    catch (error) {
-        console.log("Cannot find user!", error);
-        resp.status(500).json({ message: "Something went wrong" }); // Return a JSON error response
-    }
-});
-
-
-//retrieving user data
-app.get("/GetCurrentUser", async (req: Request<{}, {}, {}>, resp: Response) => {
-    try {
-        const FoundCurrentLoggedUser = await CurrentUserModel.findById("6721f76badfdbd58c3f3ebf7");
-        console.log(FoundCurrentLoggedUser, "GOT");
-        if (!FoundCurrentLoggedUser) {
-            resp.status(404).json({ message: "User not found" });
-        }
-        else if (FoundCurrentLoggedUser) {
-            const findUser = await UserModel.findOne({ username: FoundCurrentLoggedUser.currentusername })
-            if (findUser) {
-                resp.send(findUser)
-                //console.log("Sending found user")
-                //console.log(findUser);
-            }
+        const findUser = await UserModel.findOne({ username: un })
+        if (findUser) {
+            resp.send(findUser)
         }
     }
 

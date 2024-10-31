@@ -3,12 +3,12 @@ import { Button, Form, InputGroup } from 'react-bootstrap'
 import { Link, LinkProps } from 'react-router-dom'
 import { useState, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { CurrentUserContext } from '../../GlobalStates/GlobalUserState';
+//import { CurrentUserContext } from '../../GlobalStates/GlobalUserState';
 
 function Login() {
     const [username, setUserName] = useState("");
     const [password, setPassword] = useState("");
-    const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
+    //const { currentUser, setCurrentUser, logged, setLogged } = useContext(CurrentUserContext);
     const [isSuccessful, setIsSuccessful] = useState(false);
     const [firstAttempt, setFirstAttempt] = useState(true);
     const [errorMessage, setErrorMessage] = useState("");
@@ -29,8 +29,8 @@ function Login() {
         console.log(success);
         if (success.success === true) {
             console.log("User Verified succesfully");
+            sessionStorage.setItem('currentuser', JSON.stringify({ currentusername: username }))
             setIsSuccessful(true);
-            setCurrentUser({ username: username, password: password });
             setErrorMessage("");
         }
         else if (success.success === false) {
@@ -44,7 +44,6 @@ function Login() {
     useEffect(() => {
         if (isSuccessful) {
             navigate("/UserScreen"); // Navigate when successful
-            console.log(currentUser);
         }
     }, [isSuccessful]);
 

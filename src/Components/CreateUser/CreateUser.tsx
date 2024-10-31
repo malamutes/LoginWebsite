@@ -1,13 +1,12 @@
 import { Button, Form, FormGroup, InputGroup } from 'react-bootstrap'
 import { Link, Navigate } from 'react-router-dom'
 import { useContext, useEffect, useState } from 'react'
-import { CurrentUserContext } from '../../GlobalStates/GlobalUserState';
 import { useNavigate } from 'react-router-dom';
 
 function CreateUser() {
     const [username, setUserName] = useState("");
     const [password, setPassword] = useState("");
-    const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
+    //const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
     const navigate = useNavigate();
     const [isSuccessful, setIsSuccessful] = useState(false);
     const [countryList, setCountryList] = useState([]);
@@ -44,7 +43,7 @@ function CreateUser() {
         console.log(result, "HELLO");
         if (result) {
             console.log("Data saved succesfully");
-            setCurrentUser({ username: username, password: password });
+            sessionStorage.setItem('currentuser', JSON.stringify({ currentusername: username }))
             setIsSuccessful(true);
             setUserName("");
             setPassword("");
