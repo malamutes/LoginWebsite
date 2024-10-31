@@ -25,7 +25,7 @@ app.get("/", (_req: Request, resp: Response) => {
     resp.send("App is working")
 });
 
-app.use(express.static(path.join(__dirname, '../../../dist')));
+app.use(express.static(path.join(__dirname, '../../../dist/assets')));
 
 app.get('*', (_req: Request, res: Response) => {
     res.sendFile(path.join(__dirname, '../../../dist/index.html'));
