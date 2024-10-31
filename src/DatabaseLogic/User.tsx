@@ -25,7 +25,7 @@ const userSchema = new Schema<UserInterface>(
         },
         country: { type: String, required: true, default: "Homeless" },
         age: { type: Number, required: true, default: 0 },
-        gender: { type: String, required: true, default: 'none' },
+        gender: { type: String, required: true, default: 'none' }
 
     }
 )

@@ -18,6 +18,7 @@ function CreateUser() {
     const [validUser, setValidUser] = useState(false);
     const [validPass, setValidPass] = useState(false);
 
+
     const validatePassword = (pw: string) => {
         const regex = /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,20}$/;
         return regex.test(pw);
@@ -170,7 +171,6 @@ function CreateUser() {
                     onChange={(event: React.ChangeEvent<HTMLInputElement>) => setGender(event.target.value)}
                 />
             </InputGroup>
-
 
             <Button type="submit" variant='primary' className='me-3'>
                 Create!
