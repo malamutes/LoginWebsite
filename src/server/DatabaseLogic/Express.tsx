@@ -4,7 +4,7 @@ import { CurrentUserInterface, UserInterface, UserModel } from './User.js';
 import ConnectDatabase from './ConnectDatabase.js';
 import { Request, Response } from 'express';
 import path from 'path';
-
+import { fileURLToPath } from 'url';
 
 
 await ConnectDatabase();
@@ -12,6 +12,9 @@ await ConnectDatabase();
 const app = express();
 app.use(express.json());
 app.use(cors());
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 console.log("App listen at port 5000");
 
