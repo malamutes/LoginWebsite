@@ -21,10 +21,6 @@ const __dirname = path.dirname(__filename);
 
 console.log("App listen at port 5000");
 
-app.get("/", (_req: Request, resp: Response) => {
-    resp.send("App is working")
-});
-
 app.use(express.static(path.join(__dirname, '../../../dist/assets')));
 
 app.get('*', (_req: Request, res: Response) => {
