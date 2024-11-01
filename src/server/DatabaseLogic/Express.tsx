@@ -3,8 +3,6 @@ import cors from 'cors';
 import { CurrentUserInterface, UserInterface, UserModel } from './User.js';
 import ConnectDatabase from './ConnectDatabase.js';
 import { Request, Response } from 'express';
-import path from 'path';
-import { fileURLToPath } from 'url';
 
 await ConnectDatabase();
 
@@ -15,17 +13,9 @@ const port = process.env.PORT || 4000;
 
 app.use(cors());
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-console.log("App listen at port 5000");
-
-app.use(express.static(path.resolve(__dirname, '../assets')));
-
-app.get('*', (_req: Request, res: Response) => {
-    res.sendFile(path.resolve(__dirname, '../index.html'));
-});
-
+app.get('./', (_req: Request, resp: Response) => {
+    resp.send(`THIS IS BACKEND SERVER TO MAKE CALLS TO AT ${port}`);
+})
 
 app.post("/CreateUser", async (req: Request, resp: Response) => {
     try {
