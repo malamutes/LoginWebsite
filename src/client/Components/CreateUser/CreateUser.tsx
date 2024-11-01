@@ -136,7 +136,7 @@ function CreateUser() {
 
             <FormGroup controlId='SelectCountry'>
                 <Form.Label>Country</Form.Label>
-                <Form.Select aria-label="Default select example" className='mb-3' onChange={
+                <Form.Select aria-label="Default select example" required className='mb-3' onChange={
                     (event: React.ChangeEvent<HTMLSelectElement>) => setCountry(event.target.value)
                 }>
                     <option>Select Residential Country</option>
@@ -148,7 +148,7 @@ function CreateUser() {
 
             <FormGroup controlId='SelectAge'>
                 <Form.Label>Age</Form.Label>
-                <Form.Range min={0} max={150} value={age} id='AgeRangeSlider' onChange={(event: React.ChangeEvent<HTMLInputElement>) => setAge(Number(event.target.value))} />
+                <Form.Range min={0} max={150} value={age} id='AgeRangeSlider' required onChange={(event: React.ChangeEvent<HTMLInputElement>) => setAge(Number(event.target.value))} />
                 <Form.Label>{age}</Form.Label>
             </FormGroup>
 
@@ -160,6 +160,7 @@ function CreateUser() {
                     value='Male'
                     type='radio'
                     id={`inline-'radio'-1`}
+                    required
                     onChange={(event: React.ChangeEvent<HTMLInputElement>) => setGender(event.target.value)}
                 />
                 <Form.Check
@@ -169,6 +170,7 @@ function CreateUser() {
                     value='Female'
                     type='radio'
                     id={`inline-'radio'-2`}
+                    required
                     onChange={(event: React.ChangeEvent<HTMLInputElement>) => setGender(event.target.value)}
                 />
             </InputGroup>
