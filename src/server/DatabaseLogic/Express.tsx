@@ -13,7 +13,7 @@ const port = process.env.PORT || 4000;
 
 app.use(cors());
 
-app.get('./', (_req: Request, resp: Response) => {
+app.get('/', (_req: Request, resp: Response) => {
     resp.send(`THIS IS BACKEND SERVER TO MAKE CALLS TO AT ${port}`);
 })
 
