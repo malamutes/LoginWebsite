@@ -49,10 +49,10 @@ export default function UserScreen() {
         <>
             <Card style={{ width: '25rem' }} className="mb-3">
                 <Card.Body>
-                    <Card.Title>{userData.username}</Card.Title>
+                    <Card.Title>{dataLoaded ? userData.username : "Loading Username..."}</Card.Title>
                     <Card.Subtitle className="mb-2 text-muted">PASSWORD HIDDEN</Card.Subtitle>
                     <Card.Text>
-                        {dataLoaded ? message : "Loading..."};
+                        {dataLoaded ? message : "Loading..."}
                     </Card.Text>
                 </Card.Body>
             </Card>
