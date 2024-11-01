@@ -19,7 +19,7 @@ export default function UserScreen() {
             }
             console.log(currUsername);
 
-            let result = await fetch("https://loginwebsitebackendsingapore.onrender.com/GetCurrentUser", {
+            let result = await fetch("https://loginwebsitebackend.onrender.com/GetCurrentUser", {
                 method: "post",
                 body: JSON.stringify({ currentusername: currUsername }),
                 headers: {

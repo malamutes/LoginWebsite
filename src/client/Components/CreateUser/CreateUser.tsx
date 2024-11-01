@@ -43,7 +43,7 @@ function CreateUser() {
         event.preventDefault();
 
         if (validPass && validUser) {
-            let result = await fetch("https://loginwebsitebackendsingapore.onrender.com/CreateUser", {
+            let result = await fetch("https://loginwebsitebackend.onrender.com/CreateUser", {
                 method: "post",
                 body: JSON.stringify({ username, password, country, age, gender }),
                 headers: {
