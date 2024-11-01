@@ -19,7 +19,7 @@ const userSchema = new Schema<UserInterface>(
         password: {
             type: String, required: true, minlength: 8, maxlength: 20, validate: {
                 validator: function (pw: string) {
-                    return /\d{3}-\d{3}-\d{4}/.test(pw);
+                    return /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,20}$/.test(pw);
                 },
             },
         },
