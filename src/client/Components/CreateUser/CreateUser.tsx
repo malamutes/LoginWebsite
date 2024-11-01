@@ -139,7 +139,7 @@ function CreateUser() {
                 <Form.Select aria-label="Default select example" required className='mb-3' onChange={
                     (event: React.ChangeEvent<HTMLSelectElement>) => setCountry(event.target.value)
                 }>
-                    <option>Select Residential Country</option>
+                    <option value="">Select Residential Country</option>
                     {countryList.map((country, index) => (
                         <option key={index} value={country}>{country}</option>
                     ))}
