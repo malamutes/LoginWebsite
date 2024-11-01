@@ -42,6 +42,7 @@ function CreateUser() {
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
+        console.log(JSON.stringify({ username, password, country, age, gender }));
         if (validPass && validUser) {
             let result = await fetch("https://loginwebsitebackend.onrender.com/CreateUser", {
                 method: "post",
