@@ -18,7 +18,7 @@ function Login() {
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         console.log(isSuccessful);
         event.preventDefault();
-        let result = await fetch("https://loginwebsitebackend.onrender.com/UserLogin", {
+        let result = await fetch("https://loginwebsitebackendsingapore.onrender.com/UserLogin", {
             method: "post",
             body: JSON.stringify({ username, password }),
             headers: {
