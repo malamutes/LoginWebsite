@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 
 export default function UserScreen() {
     const [userData, setUserData] = useState<UserInterface>({ username: "", password: "", country: "", age: 0, gender: "" });
+    const [dataLoaded, setDataLoaded] = useState(false);
 
     useEffect(() => {
         const getUserData = async () => {
@@ -32,6 +33,8 @@ export default function UserScreen() {
                 console.log("GOT USER");
                 setUserData(data);
                 console.log(data, "DATA");
+                setDataLoaded(true);
+
             }
         };
 
@@ -40,6 +43,8 @@ export default function UserScreen() {
 
     }, [])
 
+    const message = `You are from ${userData.country}, a ${userData.gender} and you are ${userData.age} years old.`
+
     return (
         <>
             <Card style={{ width: '25rem' }} className="mb-3">
@@ -47,7 +52,7 @@ export default function UserScreen() {
                     <Card.Title>{userData.username}</Card.Title>
                     <Card.Subtitle className="mb-2 text-muted">PASSWORD HIDDEN</Card.Subtitle>
                     <Card.Text>
-                        You are from {userData.country}, a {userData.gender} and you are {userData.age} years old.
+                        {dataLoaded ? message : "Loading..."};
                     </Card.Text>
                 </Card.Body>
             </Card>
